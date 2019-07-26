@@ -1,0 +1,8 @@
+# .pairs - configuration for 'git pair'
+pairs:
+  al: Arie Ardaya Lizuardi; arie.lizuardi
+email:
+  prefix: pair
+  domain: gmail.com
+  no_solo_prefix: false
+global: false
