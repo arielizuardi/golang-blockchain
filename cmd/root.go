@@ -50,7 +50,7 @@ func initDependency() {
 
 	blockchain := []block.Block{genesisBlock}
 	httpServer = &server.Server{
-		Port:       9092,
+		Port:       8088,
 		Blockchain: blockchain,
 	}
 }

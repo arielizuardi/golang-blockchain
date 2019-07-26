@@ -1,6 +1,10 @@
 package usecase
 
-import "github.com/arielizuardi/golang-blockchain/block"
+import (
+	"errors"
+
+	"github.com/arielizuardi/golang-blockchain/block"
+)
 
 // BlockUsecase ...
 type BlockUsecase struct {
@@ -16,6 +20,22 @@ func (u *BlockUsecase) GetBlockChain() ([]block.Block, error) {
 	return u.Repository.GetBlockChain()
 }
 
-func (u *BlockUsecase) WriteBlock(b block.Block) error {
-	return u.Repository.WriteBlock(b)
+func (u *BlockUsecase) WriteBlock(bpm int) error {
+	blockchain, err := u.GetBlockChain()
+	if err != nil {
+		return err
+	}
+
+	lastBlock := blockchain[len(blockchain)-1]
+
+	newBlock, err := block.GenerateBlock(lastBlock, bpm)
+	if err != nil {
+		return err
+	}
+
+	if !block.IsBlockValid(newBlock, lastBlock) {
+		return errors.New("not valid")
+	}
+
+	return u.Repository.WriteBlock(newBlock)
 }

@@ -27,5 +27,7 @@ func (s *Server) StartHTTPServer() {
 	blockHandler := handler.NewBlockHTTPHandler(blockUsecase)
 
 	e.GET("/blockchain", blockHandler.HandleGetBlockChain)
+	e.POST("/blockchain", blockHandler.HandleWriteBlockChain)
+
 	logrus.Fatal(e.Start(fmt.Sprintf(":%d", s.Port)))
 }
